@@ -10,7 +10,7 @@ import threading
 from get_frames import calculate_similarity
 
 class ProcessingPopup:
-    """Popup window for showing processing progress"""
+    """Popup window for showing processing progress chyn edit"""
     def __init__(self, parent):
         self.popup = tk.Toplevel(parent)
         self.popup.title("Processing...")

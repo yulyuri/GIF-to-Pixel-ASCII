@@ -1,0 +1,5 @@
+numpy==2.3.5
+pillow==12.0.0
+pywinstyles==1.8
+sv_ttk==2.6.1
+tkinterdnd2==0.4.3

@@ -4,6 +4,8 @@ env/
 
 # Output folders
 frames/
+ascii_frames/
+ascii_output/
 
 # Python cache
 __pycache__/

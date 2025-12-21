@@ -12,7 +12,7 @@ from pathlib import Path
 import glob
 
 # Import our ASCII converter
-from asciiart_converter import image_to_ascii, render_ascii_to_image
+from asciiart_converter import image_to_ascii, render_ascii_to_image, save_ascii_to_file
 
 class ASCIIConverterGUI:
     def __init__(self, root):
@@ -332,19 +332,29 @@ class ASCIIConverterGUI:
                         use_retro_colors=self.use_retro.get()
                     )
                     
-                    # Generate output filename
+                    # Generate output filenames
                     base_name = os.path.splitext(os.path.basename(frame_path))[0]
-                    output_path = os.path.join(output_dir, f"{base_name}_ascii.png")
+                    png_path = os.path.join(output_dir, f"{base_name}_ascii.png")
+                    txt_path = os.path.join(output_dir, f"{base_name}_ascii.txt")
                     
-                    # Render to image
-                    render_ascii_to_image(ascii_art, output_path, font_size=self.font_size.get())
+                    # Save text file (for neofetch/terminal use)
+                    save_ascii_to_file(ascii_art, txt_path)
+                    
+                    # Render to image (for preview)
+                    render_ascii_to_image(ascii_art, png_path, font_size=self.font_size.get())
                     
                     # Update progress
                     self.progress['value'] = i + 1
                     self.root.update_idletasks()
                 
-                self.update_status(f"✓ Complete! {len(files)} frames converted to {output_dir}")
-                messagebox.showinfo("Success", f"Converted {len(files)} frames!\n\nOutput: {output_dir}")
+                self.update_status(f"✓ Complete! {len(files)} frames → .txt + .png in {output_dir}")
+                messagebox.showinfo("Success", 
+                    f"Converted {len(files)} frames!\n\n"
+                    f"Output: {output_dir}\n\n"
+                    f"Files created:\n"
+                    f"• .txt files (for neofetch/terminal)\n"
+                    f"• .png files (for preview)"
+                )
                 
             except Exception as e:
                 messagebox.showerror("Error", f"Conversion failed: {str(e)}")
